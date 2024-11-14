@@ -4,6 +4,7 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 
 import authRouter from './routers/authRouter.js'
+import userRouter from './routers/userRouter.js'
 
 import {logMessage} from './utils/logMessage.js'
 import connectDB from './db/connectDB.js'
@@ -28,7 +29,7 @@ app.use((req, res, next) => {
 
 //App Routes
 app.use('/api/auth', authRouter)
-
+app.use('/api/user', userRouter)
 
 
 app.listen(process.env.PORT, () => {

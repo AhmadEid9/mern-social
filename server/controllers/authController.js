@@ -87,7 +87,7 @@ const userLogin = async (req, res) => {
             return res.status(400).json({ message : "User does not exist" });
         }
 
-        const hashedPassword = bcrypt.compare(password, user?.password || '');
+        const hashedPassword = await bcrypt.compare(password, user?.password || '');
 
         if (!hashedPassword){
             return res.status(400).json({ message : "Incorrect password" });
@@ -122,4 +122,14 @@ const userLogOut = (req, res) => {
     }
 }
 
-export { userSignUp, userLogin, userLogOut }
+const getMe = async (req, res) => {    
+    try {
+        const user = await User.findById(req.user._id).select('-password')
+        return res.status(200).json({user})
+    } catch (error) {
+        logMessage('error', error)
+        return res.status(500).json({message : "Internal Server Error"})
+    }
+}
+
+export { userSignUp, userLogin, userLogOut, getMe }

@@ -47,7 +47,7 @@ const userSchema =  mongoose.Schema({
         default: ""
     },
     links: {
-        type: String,
+        type: [String],
         default: ""
     }
 }, {timestamps: true})
